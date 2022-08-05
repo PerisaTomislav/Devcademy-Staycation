@@ -6,23 +6,31 @@ This is the implementation of Accommodation Reservation System.
 Solution has 3 separate layers: API, Logic, Data.
 
 ### API layer
-Path: api/accommodation
+Path: 
+  - api/accommodation
+  - api/location
 
-Allows insertion of new accommodation, retrieval of all accommodations, update of a specific accommodation by id, and delete of a specific accommodation by id through HttpPost, HttpGet, HttpPut and HttpDelete operations.
+Allows insertion of new accommodation and location, retrieval of all accommodations, update of a specific accommodation by id, and delete of a specific accommodation by id through HttpPost, HttpGet, HttpPut and HttpDelete operations.
 
 ### Logic layer
 Connects API layer (controller) with Data layer (context) with different methods depending on Http request.
-- Implemented methods:
-  - AddAccommodation
-  - GetAccommodations
-  - UpdateAccommodationById
-  - DeleteAccommodationById
+
+Services:
+  - AccommodationsService:
+    - Implemented methods:
+      - AddAccommodationWithLocation
+      - GetAccommodations
+      - UpdateAccommodationById
+      - DeleteAccommodationById
+  - LocationsService:
+    - Implemented methods:
+      - AddLocation
 
 ### Data layer
 
 Tables:
   - Accommodations
-    - Id
+    - Id (PK)
     - Title
     - Subtitle
     - Description
@@ -32,3 +40,8 @@ Tables:
     - ImageUrl
     - FreeCancelation
     - Price
+    - LocationId (FK->Locations.Id)
+  - Locations
+    - Id (PK)
+    - Name
+    - PostalCode
