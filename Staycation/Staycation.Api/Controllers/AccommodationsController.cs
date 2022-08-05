@@ -16,11 +16,11 @@ namespace Staycation.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAccommodation([FromBody]AccommodationVM accommodationVM)
+        public IActionResult AddAccommodationWithLocation([FromBody]AccommodationVM accommodationVM)
         {
             try
             {
-                _accommodationsService.AddAccommodation(accommodationVM);
+                _accommodationsService.AddAccommodationWithLocation(accommodationVM);
                 return Ok();
             }
             catch (Exception ex)
