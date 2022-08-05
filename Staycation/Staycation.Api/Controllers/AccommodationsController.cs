@@ -20,8 +20,8 @@ namespace Staycation.Api.Controllers
         {
             try
             {
-                _accommodationsService.AddAccommodationWithLocation(accommodationVM);
-                return Ok();
+                var newAccommodation=_accommodationsService.AddAccommodationWithLocation(accommodationVM);
+                return Created(nameof(AddAccommodationWithLocation),newAccommodation);
             }
             catch (Exception ex)
             {
@@ -33,8 +33,15 @@ namespace Staycation.Api.Controllers
         [HttpGet]
         public IActionResult GetAccommodations()
         {
-            var allAccommodations=_accommodationsService.GetAccommodations();
-            return Ok(allAccommodations);
+            try
+            {
+                var allAccommodations = _accommodationsService.GetAccommodations();
+                return Ok(allAccommodations);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut("/{id}")]
@@ -63,8 +70,6 @@ namespace Staycation.Api.Controllers
             {
                 return BadRequest();
             }
-
-            
         }
     }
 }

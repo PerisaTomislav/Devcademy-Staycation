@@ -13,7 +13,7 @@ namespace Staycation.Api.Data.Services
             _context = context;
         }
 
-        public void AddLocation(LocationVM locationVM)
+        public Location AddLocation(LocationVM locationVM)
         {
             var _location = new Location()
             {
@@ -22,6 +22,7 @@ namespace Staycation.Api.Data.Services
             };
             _context.Locations.Add(_location);
             _context.SaveChanges();
+            return _location;
         }
     }
 }

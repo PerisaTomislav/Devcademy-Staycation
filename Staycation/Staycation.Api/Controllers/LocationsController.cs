@@ -20,8 +20,8 @@ namespace Staycation.Api.Controllers
         {
             try
             {
-                _locationsService.AddLocation(locationVM);
-                return Ok();
+                var newLocation=_locationsService.AddLocation(locationVM);
+                return Created(nameof(AddLocation),newLocation);
             }
             catch (Exception ex)
             {
