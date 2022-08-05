@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AccommodationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnectionString")));
 
 builder.Services.AddTransient<AccommodationsService>();
+builder.Services.AddTransient<LocationsService>();
 
 var app = builder.Build();
 
