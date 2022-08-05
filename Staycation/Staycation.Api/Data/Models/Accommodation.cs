@@ -27,6 +27,10 @@ namespace Staycation.Api.Data.Models
         [Column(TypeName ="decimal(18,2)")]
         public decimal Price { get; set; }
 
+        //Navigation properties
+        public int LocationId { get; set; }
+        public Location Location { get; set; }
+
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
