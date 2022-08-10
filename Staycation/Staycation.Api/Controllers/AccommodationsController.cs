@@ -25,7 +25,6 @@ namespace Staycation.Api.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +43,7 @@ namespace Staycation.Api.Controllers
             }
         }
 
-        [HttpPut("/{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateAccommodationById(int id, [FromBody]AccommodationVM accommodationVM)
         {
             try
@@ -58,7 +57,7 @@ namespace Staycation.Api.Controllers
             }
         }
 
-        [HttpDelete("/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteAccommodationById(int id)
         {
             try

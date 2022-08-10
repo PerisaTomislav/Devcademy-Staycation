@@ -16,7 +16,7 @@ namespace Staycation.Api.Data.Services
         public Accommodation AddAccommodationWithLocation(AccommodationVM accommodationVM)
         {
             var _location = _context.Locations.
-                Where(a => a.Name == accommodationVM.LocationName).Where(a => a.PostalCode == accommodationVM.PostalCode).SingleOrDefault();
+                Where(a => a.Name.ToLower() == accommodationVM.LocationName.ToLower()).Where(a => a.PostalCode == accommodationVM.PostalCode).SingleOrDefault();
 
             if (_location == null)
             {
@@ -29,7 +29,7 @@ namespace Staycation.Api.Data.Services
                 _context.SaveChanges();
             }
 
-            int locationId = _context.Locations.Where(b => b.Name == accommodationVM.LocationName)
+            int locationId = _context.Locations.Where(b => b.Name.ToLower() == accommodationVM.LocationName.ToLower())
     .Where(b => b.PostalCode == accommodationVM.PostalCode).SingleOrDefault()!.Id;
 
             var _accommodation = new Accommodation()
