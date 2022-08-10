@@ -30,7 +30,7 @@ namespace Staycation.Api.Data.Services
             }
 
             int locationId = _context.Locations.Where(b => b.Name.ToLower() == accommodationVM.LocationName.ToLower())
-    .Where(b => b.PostalCode == accommodationVM.PostalCode).SingleOrDefault()!.Id;
+    .Where(b => b.PostalCode == accommodationVM.PostalCode).SingleOrDefault().Id;
 
             var _accommodation = new Accommodation()
             {
