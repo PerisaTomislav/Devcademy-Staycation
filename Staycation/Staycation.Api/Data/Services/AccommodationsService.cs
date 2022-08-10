@@ -13,8 +13,25 @@ namespace Staycation.Api.Data.Services
             _context = context;
         }
 
-        public void AddAccommodation(AccommodationVM accommodationVM)
+        public Accommodation AddAccommodationWithLocation(AccommodationVM accommodationVM)
         {
+            var _location = _context.Locations.
+                Where(a => a.Name.ToLower() == accommodationVM.LocationName.ToLower()).Where(a => a.PostalCode == accommodationVM.PostalCode).SingleOrDefault();
+
+            if (_location == null)
+            {
+                var newLocation = new Location()
+                {
+                    Name = accommodationVM.LocationName,
+                    PostalCode = accommodationVM.PostalCode
+                };
+                _context.Locations.Add(newLocation);
+                _context.SaveChanges();
+            }
+
+            int locationId = _context.Locations.Where(b => b.Name.ToLower() == accommodationVM.LocationName.ToLower())
+    .Where(b => b.PostalCode == accommodationVM.PostalCode).SingleOrDefault()!.Id;
+
             var _accommodation = new Accommodation()
             {
                 Title = accommodationVM.Title,
@@ -25,10 +42,13 @@ namespace Staycation.Api.Data.Services
                 PersonCount = accommodationVM.PersonCount,
                 ImageUrl = accommodationVM.ImageUrl,
                 FreeCancelation = accommodationVM.FreeCancelation,
-                Price = accommodationVM.Price
+                Price = accommodationVM.Price,
+                LocationId= locationId,
             };
             _context.Accommodations.Add(_accommodation);
             _context.SaveChanges();
+
+            return _accommodation;
         }
 
         public List<Accommodation> GetAccommodations()

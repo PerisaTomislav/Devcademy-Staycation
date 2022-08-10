@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Services;
-
+using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -14,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AccommodationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnectionString")));
 
 builder.Services.AddTransient<AccommodationsService>();
+builder.Services.AddTransient<LocationsService>();
 
 var app = builder.Build();
 

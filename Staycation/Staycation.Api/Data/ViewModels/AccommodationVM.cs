@@ -13,5 +13,7 @@ namespace Staycation.Api.Data.ViewModels
         public string ImageUrl { get; set; }
         public bool? FreeCancelation { get; set; }
         public decimal Price { get; set; }
+        public string LocationName { get; set; }
+        public int PostalCode { get; set; }
     }
 }

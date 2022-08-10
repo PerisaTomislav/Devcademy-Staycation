@@ -16,16 +16,15 @@ namespace Staycation.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAccommodation([FromBody]AccommodationVM accommodationVM)
+        public IActionResult AddAccommodationWithLocation([FromBody]AccommodationVM accommodationVM)
         {
             try
             {
-                _accommodationsService.AddAccommodation(accommodationVM);
-                return Ok();
+                var newAccommodation=_accommodationsService.AddAccommodationWithLocation(accommodationVM);
+                return Created(nameof(AddAccommodationWithLocation),newAccommodation);
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
@@ -33,11 +32,18 @@ namespace Staycation.Api.Controllers
         [HttpGet]
         public IActionResult GetAccommodations()
         {
-            var allAccommodations=_accommodationsService.GetAccommodations();
-            return Ok(allAccommodations);
+            try
+            {
+                var allAccommodations = _accommodationsService.GetAccommodations();
+                return Ok(allAccommodations);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
-        [HttpPut("/{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateAccommodationById(int id, [FromBody]AccommodationVM accommodationVM)
         {
             try
@@ -51,7 +57,7 @@ namespace Staycation.Api.Controllers
             }
         }
 
-        [HttpDelete("/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteAccommodationById(int id)
         {
             try
@@ -63,8 +69,6 @@ namespace Staycation.Api.Controllers
             {
                 return BadRequest();
             }
-
-            
         }
     }
 }

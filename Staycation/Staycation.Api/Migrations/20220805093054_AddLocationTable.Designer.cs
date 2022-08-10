@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Staycation.Api.Data.Access;
 
@@ -11,9 +12,10 @@ using Staycation.Api.Data.Access;
 namespace Staycation.Api.Migrations
 {
     [DbContext(typeof(AccommodationContext))]
-    partial class AccommodationContextModelSnapshot : ModelSnapshot
+    [Migration("20220805093054_AddLocationTable")]
+    partial class AddLocationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,7 +95,7 @@ namespace Staycation.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("Staycation.Api.Data.Models.Accommodation", b =>
