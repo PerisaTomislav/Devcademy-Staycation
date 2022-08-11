@@ -6,28 +6,33 @@ namespace Staycation.Api.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(100)]
         public string Title { get; set; }
-        
+
         [MaxLength(100)]
         public string Subtitle { get; set; }
 
         [MaxLength(500)]
         public string Description { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string Type { get; set; }
         
         [Range(1,5)]
         [Required]
         public int Categorization { get; set; }
-        
+
+        [Required]
         [Range(1,int.MaxValue)]
         public int PersonCount { get; set; }
 
         [MaxLength(800)]
         public string ImageUrl { get; set; }
-        public bool? FreeCancelation { get; set; }
+
+        [Required]
+        public bool FreeCancelation { get; set; }
         
         [Required]
         [Column(TypeName ="decimal(18,2)")]
@@ -36,6 +41,7 @@ namespace Staycation.Api.Data.Models
         //Navigation properties
         public int LocationId { get; set; }
         public Location Location { get; set; }
+        public List<Reservation> Reservations { get; set; }
 
         public override bool Equals(object? obj)
         {
