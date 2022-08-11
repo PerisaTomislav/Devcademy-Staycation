@@ -9,10 +9,14 @@ namespace Staycation.Api.Data.Models
         [MaxLength(100)]
         public string Title { get; set; }
         
-        [MaxLength(200)]
+        [MaxLength(100)]
         public string Subtitle { get; set; }
+
+        [MaxLength(500)]
         public string Description { get; set; }
-        public TypeAtt Type { get; set; }
+
+        [MaxLength(50)]
+        public string Type { get; set; }
         
         [Range(1,5)]
         [Required]
@@ -20,9 +24,11 @@ namespace Staycation.Api.Data.Models
         
         [Range(1,int.MaxValue)]
         public int PersonCount { get; set; }
+
+        [MaxLength(800)]
         public string ImageUrl { get; set; }
         public bool? FreeCancelation { get; set; }
-
+        
         [Required]
         [Column(TypeName ="decimal(18,2)")]
         public decimal Price { get; set; }
@@ -74,10 +80,5 @@ namespace Staycation.Api.Data.Models
                 "FreeCancelation:" + FreeCancelation.ToString() + ',' +
                 "Price:" + Price.ToString() + '.';
         }
-    }
-
-    public enum TypeAtt
-    {
-        Room,Apartment,Mobile_home
     }
 }
