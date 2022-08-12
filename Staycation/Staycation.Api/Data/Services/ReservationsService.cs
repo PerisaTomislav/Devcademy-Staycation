@@ -13,7 +13,7 @@ namespace Staycation.Api.Data.Services
             _context = context;
         }
 
-        public ReservationVM AddReservation(ReservationVM reservationVM)
+        public ReservationVM AddReservationForAccommodation(ReservationVM reservationVM)
         {
             var accommodation = _context.Accommodations.FirstOrDefault(a => a.Id == reservationVM.AccommodationId);
             if (accommodation != null)
@@ -37,7 +37,7 @@ namespace Staycation.Api.Data.Services
             }
         }
 
-        public List<Reservation> GetReservations()
+        public List<Reservation> GetAllReservations()
         {
             var allReservations = _context.Reservations.ToList();
             return allReservations;
