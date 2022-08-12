@@ -5,13 +5,17 @@ namespace Staycation.Api.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(100)]
         public string Email { get; set; }
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
 
+        [Required]
         [Range(1, int.MaxValue)]
         public int PersonCount { get; set; }
+
+        [Required]
         public bool Confirmed { get; set; }
 
         //Navigation properties
