@@ -1,9 +1,17 @@
-﻿namespace Staycation.Api.Data.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Staycation.Api.Data.ViewModels
 {
     public class LocationVM
     {
-        public string ImageUrl { get; set; }
-        public string PostalCode { get; set; }
+        [MaxLength(800)]
+        public string? ImageUrl { get; set; }
+
+        [MaxLength(50)]
+        public string? PostalCode { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
     }
 }
