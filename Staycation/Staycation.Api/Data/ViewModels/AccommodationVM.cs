@@ -11,9 +11,9 @@ namespace Staycation.Api.Data.ViewModels
         public int Categorization { get; set; }
         public int PersonCount { get; set; }
         public string ImageUrl { get; set; }
-        public bool FreeCancelation { get; set; }
+        public bool? FreeCancelation { get; set; }
         public decimal Price { get; set; }
         public string LocationName { get; set; }
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
     }
 }

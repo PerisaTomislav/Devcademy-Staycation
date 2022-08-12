@@ -11,10 +11,10 @@ namespace Staycation.Api.Data.Models
         public string Title { get; set; }
 
         [MaxLength(100)]
-        public string Subtitle { get; set; }
+        public string? Subtitle { get; set; }
 
         [MaxLength(500)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -29,10 +29,10 @@ namespace Staycation.Api.Data.Models
         public int PersonCount { get; set; }
 
         [MaxLength(800)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         [Required]
-        public bool FreeCancelation { get; set; }
+        public bool? FreeCancelation { get; set; }
         
         [Required]
         [Column(TypeName ="decimal(18,2)")]

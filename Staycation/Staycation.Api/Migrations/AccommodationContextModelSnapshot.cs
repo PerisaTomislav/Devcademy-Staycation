@@ -72,7 +72,7 @@ namespace Staycation.Api.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Accommodations");
+                    b.ToTable("Accommodations", (string)null);
                 });
 
             modelBuilder.Entity("Staycation.Api.Data.Models.Location", b =>
@@ -93,7 +93,7 @@ namespace Staycation.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("Staycation.Api.Data.Models.Accommodation", b =>
