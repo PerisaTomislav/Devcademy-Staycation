@@ -16,5 +16,8 @@ namespace Staycation.Api.Data.ViewModels
 
         [Required]
         public bool Confirmed { get; set; }
+
+        [Required]
+        public int AccommodationId { get; set; }
     }
 }

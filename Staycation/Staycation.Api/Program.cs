@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AccommodationContext>(options => options.UseSqlSer
 
 builder.Services.AddTransient<AccommodationsService>();
 builder.Services.AddTransient<LocationsService>();
+builder.Services.AddTransient<ReservationsService>();
 
 var app = builder.Build();
 
