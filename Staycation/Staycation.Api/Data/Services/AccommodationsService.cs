@@ -92,5 +92,11 @@ namespace Staycation.Api.Data.Services
             var accommodationRecomendation = _context.Accommodations.OrderByDescending(a => a.Id).Take(10).ToList();
             return accommodationRecomendation;
         }
+
+        public List<Accommodation> GetAccommodationsOfALocation(int locationId)
+        {
+            var accommodationsOfALocation = _context.Accommodations.Where(a => a.LocationId == locationId).ToList();
+            return accommodationsOfALocation;
+        }
     }
 }

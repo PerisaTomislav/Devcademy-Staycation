@@ -84,5 +84,19 @@ namespace Staycation.Api.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("location/{id}")]
+        public IActionResult GetAllLocationsForGivenAccommodationId(int id)
+        {
+            try
+            {
+                var accommodationsOfALocation = _accommodationsService.GetAccommodationsOfALocation(id);
+                return Ok(accommodationsOfALocation);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }
