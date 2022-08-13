@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Staycation.Api.Data;
 using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Services;
 using System.Text.Json.Serialization;
@@ -35,3 +36,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+DbInitializer.SeedDb(app);
