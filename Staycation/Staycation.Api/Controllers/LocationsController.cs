@@ -29,5 +29,47 @@ namespace Staycation.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        public IActionResult GetAllLocations()
+        {
+            try
+            {
+                var allLocations = _locationsService.GetAllLocations();
+                return Ok(allLocations);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateLocationById(int id, [FromBody] LocationVM locationVM)
+        {
+            try
+            {
+                var updatedLocation = _locationsService.UpdateLocationById(id, locationVM);
+                return Ok(updatedLocation);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteLocationById(int id)
+        {
+            try
+            {
+                _locationsService.DeleteLocationById(id);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

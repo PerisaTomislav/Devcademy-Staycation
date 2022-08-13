@@ -26,7 +26,7 @@ namespace Staycation.Api.Data.Services
             return _location;
         }
 
-        public List<Location> GetLocations()
+        public List<Location> GetAllLocations()
         {
             var allLocations = _context.Locations.ToList();
             return allLocations;
