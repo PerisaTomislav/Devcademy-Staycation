@@ -98,7 +98,7 @@ namespace Staycation.Api.Controllers
             catch (Exception)
             {
                 _logger.LogInformation("Error occured while trying to retrieve accommodation recommendations");
-                return NotFound();
+                return BadRequest();
             }
         }
 
@@ -115,7 +115,7 @@ namespace Staycation.Api.Controllers
             catch (Exception)
             {
                 _logger.LogInformation($"Error occured while trying to retrieve locations for accommodation with id: {id}");
-                return NotFound();
+                return BadRequest();
             }
         }
     }

@@ -104,10 +104,11 @@ namespace Staycation.Api.Data.Services
 
         public List<Accommodation> GetAccommodationsOfALocation(int locationId)
         {
-            var accommodationsOfALocation = _context.Accommodations.Where(a => a.LocationId == locationId).ToList();
-            if (accommodationsOfALocation == null) throw new Exception($"Location with id: {locationId} does not exist!");
+            var location = _context.Locations.Where(a => a.Id == locationId).FirstOrDefault();
+            if(location==null) throw new Exception($"Location with id: {locationId} does not exist!");
             else
             {
+                var accommodationsOfALocation = _context.Accommodations.Where(a => a.LocationId == locationId).ToList();
                 return accommodationsOfALocation;
             }
         }
