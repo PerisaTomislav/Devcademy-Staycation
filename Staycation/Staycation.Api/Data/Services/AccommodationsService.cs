@@ -86,5 +86,11 @@ namespace Staycation.Api.Data.Services
                 _context.SaveChanges();
             }
         }
+
+        public List<Accommodation> GetAccommodationRecomendations()
+        {
+            var accommodationRecomendation = _context.Accommodations.OrderByDescending(a => a.Id).Take(10).ToList();
+            return accommodationRecomendation;
+        }
     }
 }
