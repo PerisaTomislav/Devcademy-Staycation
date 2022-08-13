@@ -62,17 +62,26 @@ namespace Staycation.Api.Data.Services
             var _accommodation = _context.Accommodations.FirstOrDefault(n => n.Id == id);
             if (_accommodation != null)
             {
-                _accommodation.Title = accommodationVM.Title;
-                _accommodation.Subtitle = accommodationVM.Subtitle;
-                _accommodation.Description = accommodationVM.Description;
-                _accommodation.Type = accommodationVM.Type;
-                _accommodation.Categorization = accommodationVM.Categorization;
-                _accommodation.PersonCount = accommodationVM.PersonCount;
-                _accommodation.ImageUrl = accommodationVM.ImageUrl;
-                _accommodation.FreeCancelation = accommodationVM.FreeCancelation;
-                _accommodation.Price = accommodationVM.Price;
-
-                _context.SaveChanges();
+                var locationId = _context.Locations.Where(a => a.PostalCode == accommodationVM.PostalCode).Where(a => a.Name == accommodationVM.LocationName).FirstOrDefault().Id;
+                if (locationId == null) throw new Exception($"Location with postal code: {accommodationVM.PostalCode} and name: {accommodationVM.LocationName} does not exist!");
+                else
+                {
+                    _accommodation.LocationId = locationId;
+                    _accommodation.Title = accommodationVM.Title;
+                    _accommodation.Subtitle = accommodationVM.Subtitle;
+                    _accommodation.Description = accommodationVM.Description;
+                    _accommodation.Type = accommodationVM.Type;
+                    _accommodation.Categorization = accommodationVM.Categorization;
+                    _accommodation.PersonCount = accommodationVM.PersonCount;
+                    _accommodation.ImageUrl = accommodationVM.ImageUrl;
+                    _accommodation.FreeCancelation = accommodationVM.FreeCancelation;
+                    _accommodation.Price = accommodationVM.Price;
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                throw new Exception($"Accommodation with id: {id} does not exist!");
             }
             return _accommodation;
         }
@@ -96,7 +105,11 @@ namespace Staycation.Api.Data.Services
         public List<Accommodation> GetAccommodationsOfALocation(int locationId)
         {
             var accommodationsOfALocation = _context.Accommodations.Where(a => a.LocationId == locationId).ToList();
-            return accommodationsOfALocation;
+            if (accommodationsOfALocation == null) throw new Exception($"Location with id: {locationId} does not exist!");
+            else
+            {
+                return accommodationsOfALocation;
+            }
         }
     }
 }
