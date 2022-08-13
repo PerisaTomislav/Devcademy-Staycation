@@ -1,4 +1,5 @@
-﻿using Staycation.Api.Data.Access;
+﻿using Microsoft.EntityFrameworkCore;
+using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Models;
 
 namespace Staycation.Api.Data
@@ -15,19 +16,18 @@ namespace Staycation.Api.Data
                 {
                     context.Locations.Add(new Location()
                     {
-                        Id=1,
                         ImageUrl = "image path 1",
-                        PostalCode="33000",
-                        Name="Virovitica"
+                        PostalCode = "33000",
+                        Name = "Virovitica"
                     });
                     context.SaveChanges();
                 }
+                int newLocationId = context.Locations.Where(a => a.PostalCode == "33000").FirstOrDefault().Id;
 
                 if (!context.Accommodations.Any())
                 {
                     context.Accommodations.Add(new Accommodation()
                     {
-                        Id=1,
                         Title = "Studentski dom",
                         Subtitle = "Studentski dom za iznajmljivanje",
                         Description = "Lijep i ugodan dom za studente svih godina",
@@ -37,23 +37,27 @@ namespace Staycation.Api.Data
                         ImageUrl = "image path",
                         FreeCancelation = false,
                         Price = 600,
-                        LocationId = 1
+                        LocationId = newLocationId
                     });
+                    context.SaveChanges();
                 }
+
+                int newAccommodationId = context.Accommodations.Where(a => a.Title == "Studentski dom").SingleOrDefault().Id;
 
                 if (!context.Reservations.Any())
                 {
                     context.Reservations.Add(new Reservation()
                     {
                         Email = "tomislav.pingi.perisa@gmail.com",
-                        AccommodationId = 1,
+                        AccommodationId = newAccommodationId,
                         CheckIn = DateTime.Now,
-                        PersonCount=1,
-                        Confirmed=true
+                        PersonCount = 1,
+                        Confirmed = true
                     });
+                    context.SaveChanges();
                 }
             }
-
         }
+
     }
 }
