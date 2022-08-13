@@ -87,10 +87,10 @@ namespace Staycation.Api.Data.Services
             }
         }
 
-        public List<Accommodation> GetAccommodationRecomendations()
+        public List<Accommodation> GetAccommodationRecommendations()
         {
-            var accommodationRecomendation = _context.Accommodations.OrderByDescending(a => a.Id).Take(10).ToList();
-            return accommodationRecomendation;
+            var accommodationRecommendation = _context.Accommodations.OrderByDescending(a => a.Id).Take(10).ToList();
+            return accommodationRecommendation;
         }
 
         public List<Accommodation> GetAccommodationsOfALocation(int locationId)

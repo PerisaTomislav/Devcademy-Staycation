@@ -10,9 +10,11 @@ namespace Staycation.Api.Controllers
     public class LocationsController : ControllerBase
     {
         public LocationsService _locationsService;
-        public LocationsController(LocationsService locationsService)
+        private readonly ILogger<LocationsController> _logger;
+        public LocationsController(LocationsService locationsService, ILogger<LocationsController> logger)
         {
             _locationsService = locationsService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -20,12 +22,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing AddLocation");
                 var newLocation=_locationsService.AddLocation(locationVM);
+                _logger.LogInformation("Successfully added location");
                 return Created(nameof(AddLocation),newLocation);
             }
             catch (Exception ex)
             {
-
+                _logger.LogInformation("Error occured while trying to add new location");
                 return BadRequest(ex.Message);
             }
         }
@@ -35,11 +39,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing GetAllLocations");
                 var allLocations = _locationsService.GetAllLocations();
+                _logger.LogInformation("Successfully retrieved all locations");
                 return Ok(allLocations);
             }
             catch (Exception)
             {
+                _logger.LogInformation("Error occured while trying to retrieve all locations");
                 return NotFound();
             }
         }
@@ -49,11 +56,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing UpdateLocationById");
                 var updatedLocation = _locationsService.UpdateLocationById(id, locationVM);
+                _logger.LogInformation($"Successfully updated location with id: {id}");
                 return Ok(updatedLocation);
             }
             catch (Exception ex)
             {
+                _logger.LogInformation($"Error occured while trying to update location with id: {id}");
                 return BadRequest();
             }
         }
@@ -63,11 +73,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing DeleteLocationById");
                 _locationsService.DeleteLocationById(id);
+                _logger.LogInformation($"Successfully deleted location with id: {id}");
                 return Ok();
             }
             catch (Exception)
             {
+                _logger.LogInformation($"Error occured while trying to delete location with id: {id}");
                 return BadRequest();
             }
         }

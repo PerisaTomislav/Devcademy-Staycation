@@ -5,14 +5,16 @@ using Staycation.Api.Data.ViewModels;
 
 namespace Staycation.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/reservation")]
     [ApiController]
     public class ReservationsController : ControllerBase
     {
         public ReservationsService _reservationsService;
-        public ReservationsController(ReservationsService reservationsService)
+        private readonly ILogger<ReservationsController> _logger;
+        public ReservationsController(ReservationsService reservationsService, ILogger<ReservationsController> logger)
         {
             _reservationsService = reservationsService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -20,11 +22,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing AddReservationForAccommodation");
                 var newReservation = _reservationsService.AddReservationForAccommodation(reservationVM);
+                _logger.LogInformation($"Successfully added reservation for accommodation with id: {reservationVM.AccommodationId}");
                 return Created(nameof(AddReservationForAccommodation), newReservation);
             }
             catch (Exception ex)
             {
+                _logger.LogInformation($"Error occured while trying to add reservation for accommodation with id: {reservationVM.AccommodationId}");
                 return BadRequest(ex.Message);
             }
         }
@@ -34,11 +39,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing GetAllReservations");
                 var allReservations = _reservationsService.GetAllReservations();
+                _logger.LogInformation("Successfully retrieved all reservations");
                 return Ok(allReservations);
             }
             catch (Exception)
             {
+                _logger.LogInformation("Error occured while trying to retrieve all reservations");
                 return NotFound();
             }
         }
@@ -48,11 +56,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing UpdateReservationById");
                 var updatedReservation = _reservationsService.UpdateReservationById(id, reservationVM);
+                _logger.LogInformation($"Successfully updated reservation with id: {id}");
                 return Ok(updatedReservation);
             }
             catch (Exception ex)
             {
+                _logger.LogInformation($"Error occured while trying to update reservation with id: {id}");
                 return BadRequest();
             }
         }
@@ -62,11 +73,14 @@ namespace Staycation.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Executing DeleteReservationById");
                 _reservationsService.DeleteReservationById(id);
+                _logger.LogInformation($"Successfully deleted reservation with id: {id}");
                 return Ok();
             }
             catch (Exception)
             {
+                _logger.LogInformation($"Error occured while trying to delete reservation with id: {id}");
                 return BadRequest();
             }
         }

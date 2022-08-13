@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Staycation.Api.Data;
 using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Services;
@@ -6,6 +7,15 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+var logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+//var logger = new LoggerConfiguration().WriteTo.File("Logs/log.txt",rollingInterval: RollingInterval.Day).CreateLogger();
+//builder.Logging.ClearProviders();
+//builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
