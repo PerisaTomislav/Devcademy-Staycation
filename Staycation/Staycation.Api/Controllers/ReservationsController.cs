@@ -59,7 +59,7 @@ namespace Staycation.Api.Controllers
                 _logger.LogInformation("Executing UpdateReservationById");
                 var updatedReservation = _reservationsService.UpdateReservationById(id, reservationVM);
                 _logger.LogInformation($"Successfully updated reservation with id: {id}");
-                return Ok(updatedReservation);
+                return Accepted(updatedReservation);
             }
             catch (Exception ex)
             {
