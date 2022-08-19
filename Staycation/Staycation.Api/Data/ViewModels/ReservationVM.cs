@@ -6,6 +6,7 @@ namespace Staycation.Api.Data.ViewModels
     {
         [Required]
         [MaxLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
