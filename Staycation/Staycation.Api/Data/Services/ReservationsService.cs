@@ -1,6 +1,7 @@
 ﻿using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Models;
 using Staycation.Api.Data.ViewModels;
+using Staycation.Api.Exceptions;
 
 namespace Staycation.Api.Data.Services
 {
@@ -33,7 +34,7 @@ namespace Staycation.Api.Data.Services
             }
             else
             {
-                throw new Exception($"The accommodation with id: {reservationVM.AccommodationId} does not exist!");
+                throw new ReservationNotPossibleException("Reservation is not possible because the accommodation does not exist!");
             }
         }
 
@@ -57,7 +58,7 @@ namespace Staycation.Api.Data.Services
                     }
                     else
                     {
-                        throw new Exception($"Accommodation with id: {reservationVM.AccommodationId} does not exist");
+                        throw new ReservationNotPossibleException($"Accommodation with id: {reservationVM.AccommodationId} does not exist");
                     }
                 }
                 _reservation.Email = reservationVM.Email;
@@ -70,7 +71,7 @@ namespace Staycation.Api.Data.Services
             }
             else
             {
-                throw new Exception($"Reservation with id: {id} does not exist!");
+                throw new ReservationNotPossibleException($"Reservation is not possible because the reservation does not exist!");
             }
         }
 

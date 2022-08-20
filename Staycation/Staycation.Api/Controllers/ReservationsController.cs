@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Staycation.Api.Data.Services;
 using Staycation.Api.Data.ViewModels;
+using Staycation.Api.Exceptions;
 
 namespace Staycation.Api.Controllers
 {
@@ -26,6 +27,12 @@ namespace Staycation.Api.Controllers
                 var newReservation = _reservationsService.AddReservationForAccommodation(reservationVM);
                 _logger.LogInformation($"Successfully added reservation for accommodation with id: {reservationVM.AccommodationId}");
                 return Created(nameof(AddReservationForAccommodation), newReservation);
+            }
+            catch (ReservationNotPossibleException ex)
+            {
+                _logger.LogInformation(ex.Message);
+                return BadRequest(ex.Message);
+
             }
             catch (Exception ex)
             {
@@ -60,6 +67,12 @@ namespace Staycation.Api.Controllers
                 var updatedReservation = _reservationsService.UpdateReservationById(id, reservationVM);
                 _logger.LogInformation($"Successfully updated reservation with id: {id}");
                 return Accepted(updatedReservation);
+            }
+            catch (ReservationNotPossibleException ex)
+            {
+                _logger.LogInformation(ex.Message);
+                return BadRequest(ex.Message);
+
             }
             catch (Exception ex)
             {
