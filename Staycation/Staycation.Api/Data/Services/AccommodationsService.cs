@@ -40,15 +40,33 @@ namespace Staycation.Api.Data.Services
                 Type = accommodationVM.Type,
                 Categorization = accommodationVM.Categorization,
                 PersonCount = accommodationVM.PersonCount,
-                ImageUrl = accommodationVM.ImageUrl,
+                ImageTitle = accommodationVM.ImageUrl,
                 FreeCancelation = accommodationVM.FreeCancelation,
                 Price = accommodationVM.Price,
-                LocationId= locationId,
+                LocationId = locationId,
             };
             _context.Accommodations.Add(_accommodation);
             _context.SaveChanges();
 
             return _accommodation;
+        }
+
+        public void AddImageForAccommodation(int id, IFormFile file)
+        {
+            var _accommodation = _context.Accommodations.FirstOrDefault(n => n.Id == id);
+            if (_accommodation != null)
+            {
+                if (file != null)
+                {
+                    MemoryStream ms = new MemoryStream();
+                    file.CopyTo(ms);
+                    byte[] imageData = ms.ToArray();
+                    ms.Close();
+                    ms.Dispose();
+                    _accommodation.ImageData=imageData;
+                    _context.SaveChanges();
+                }
+            }
         }
 
         public List<Accommodation> GetAccommodations()
@@ -73,7 +91,7 @@ namespace Staycation.Api.Data.Services
                     _accommodation.Type = accommodationVM.Type;
                     _accommodation.Categorization = accommodationVM.Categorization;
                     _accommodation.PersonCount = accommodationVM.PersonCount;
-                    _accommodation.ImageUrl = accommodationVM.ImageUrl;
+                    _accommodation.ImageTitle = accommodationVM.ImageUrl;
                     _accommodation.FreeCancelation = accommodationVM.FreeCancelation;
                     _accommodation.Price = accommodationVM.Price;
                     _context.SaveChanges();

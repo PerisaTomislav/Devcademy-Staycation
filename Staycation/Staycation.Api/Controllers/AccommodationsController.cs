@@ -67,7 +67,24 @@ namespace Staycation.Api.Controllers
                 return BadRequest();
             }
         }
-
+        
+        [HttpPut("image/{id}")]
+        public IActionResult AddImageForAccommodation(int id,IFormFile file)
+        {
+            try
+            {
+                _logger.LogInformation("Executing AddImageForAccommodation");
+                _accommodationsService.AddImageForAccommodation(id,file);
+                _logger.LogInformation($"Successfully added image for accommodation with id: {id}");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Error occured while trying to add image for accommodation with id: {id}");
+                return BadRequest();
+            }
+        }
+        
         [HttpDelete("{id}")]
         public IActionResult DeleteAccommodationById(int id)
         {

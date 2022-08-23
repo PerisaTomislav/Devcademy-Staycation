@@ -29,7 +29,9 @@ namespace Staycation.Api.Data.Models
         public int PersonCount { get; set; }
 
         [MaxLength(800)]
-        public string? ImageUrl { get; set; }
+        public string? ImageTitle { get; set; }
+
+        public byte[]? ImageData { get; set; }
 
         [Required]
         public bool? FreeCancelation { get; set; }
@@ -54,7 +56,7 @@ namespace Staycation.Api.Data.Models
                 this.Type == ((Accommodation)obj).Type &&
                 this.Categorization == ((Accommodation)obj).Categorization &&
                 this.PersonCount == ((Accommodation)obj).PersonCount &&
-                this.ImageUrl == ((Accommodation)obj).ImageUrl &&
+                this.ImageTitle == ((Accommodation)obj).ImageTitle &&
                 this.FreeCancelation == ((Accommodation)obj).FreeCancelation &&
                 this.Price == ((Accommodation)obj).Price;
         }
@@ -68,7 +70,7 @@ namespace Staycation.Api.Data.Models
                 Type.GetHashCode() ^
                 Categorization.GetHashCode() ^
                 PersonCount.GetHashCode() ^
-                ImageUrl.GetHashCode() ^
+                ImageTitle.GetHashCode() ^
                 FreeCancelation.GetHashCode() ^
                 Price.GetHashCode();
         }
@@ -82,7 +84,7 @@ namespace Staycation.Api.Data.Models
                 "Type:" + Type.ToString() + ',' +
                 "Categorization:" + Categorization.ToString() + ',' +
                 "PersonCount:" + PersonCount.ToString() + ',' +
-                "ImageUrl:" + ImageUrl.ToString() + ',' +
+                "ImageUrl:" + ImageTitle.ToString() + ',' +
                 "FreeCancelation:" + FreeCancelation.ToString() + ',' +
                 "Price:" + Price.ToString() + '.';
         }

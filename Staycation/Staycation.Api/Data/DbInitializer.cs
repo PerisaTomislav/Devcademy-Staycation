@@ -34,7 +34,7 @@ namespace Staycation.Api.Data
                         Type = "Dom",
                         Categorization = 5,
                         PersonCount = 20,
-                        ImageUrl = "image path",
+                        ImageTitle = "image path",
                         FreeCancelation = false,
                         Price = 600,
                         LocationId = newLocationId
