@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Staycation.Api.Data;
 using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Services;
+using System.Text;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +33,21 @@ builder.Services.AddTransient<AccommodationsService>();
 builder.Services.AddTransient<LocationsService>();
 builder.Services.AddTransient<ReservationsService>();
 builder.Services.AddTransient<DbInitializer>();
+builder.Services.AddTransient<LoginService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer=true,
+            ValidateAudience=true,
+            ValidateLifetime=true,
+            ValidateIssuerSigningKey=true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
 
 var app = builder.Build();
 
@@ -43,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
