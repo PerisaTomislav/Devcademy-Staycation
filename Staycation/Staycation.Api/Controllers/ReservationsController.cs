@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Staycation.Api.Data.Services;
 using Staycation.Api.Data.ViewModels;
@@ -95,6 +96,23 @@ namespace Staycation.Api.Controllers
             {
                 _logger.LogInformation($"Error occured while trying to delete reservation with id: {id}");
                 return BadRequest();
+            }
+        }
+
+        [Authorize(Roles="ROLE_ADMIN")]
+        [HttpPut("confirm/{id}")]
+        public IActionResult ConfirmReservation(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Executing ConfirmReservation");
+                _reservationsService.ConfirmReservation(id);
+                return Ok();
+            }
+            catch(Exception)
+            {
+                _logger.LogInformation($"Error occured while trying to confirm reservation with id:{id}");
+                return NotFound();
             }
         }
     }

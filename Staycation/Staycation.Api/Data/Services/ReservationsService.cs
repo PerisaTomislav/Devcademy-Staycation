@@ -1,4 +1,5 @@
-﻿using Staycation.Api.Data.Access;
+﻿using Microsoft.AspNetCore.Authorization;
+using Staycation.Api.Data.Access;
 using Staycation.Api.Data.Models;
 using Staycation.Api.Data.ViewModels;
 using Staycation.Api.Exceptions;
@@ -8,7 +9,6 @@ namespace Staycation.Api.Data.Services
     public class ReservationsService
     {
         private AccommodationContext _context;
-
         public ReservationsService(AccommodationContext context)
         {
             _context = context;
@@ -86,6 +86,27 @@ namespace Staycation.Api.Data.Services
             else
             {
                 throw new Exception($"Reservation with id: {id} does not exist!");
+            }
+        }
+
+        public void ConfirmReservation(int id)
+        {
+            var _reservation = _context.Reservations.FirstOrDefault(n => n.Id == id);
+            if (_reservation != null)
+            {
+                if (_reservation.Confirmed == false)
+                {
+                    _reservation.Confirmed = true;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Reservation is already confirmed");
+                }
+            }
+            else
+            {
+                throw new ReservationNotPossibleException($"Reservation is not possible because the reservation does not exist!");
             }
         }
     }
