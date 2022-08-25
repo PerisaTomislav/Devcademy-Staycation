@@ -56,6 +56,19 @@ namespace Staycation.Api.Data
                     });
                     context.SaveChanges();
                 }
+
+                if (!context.Users.Any())
+                {
+                    context.Users.Add(new User()
+                    {
+                        Email="tomislav.pingi.perisa@gmail.com",
+                        Name="Tomislav",
+                        Surname="Perisa",
+                        Password="tomitomi",
+                        Role="ROLE_ADMIN"
+                    });
+                    context.SaveChanges();
+                }
             }
         }
 

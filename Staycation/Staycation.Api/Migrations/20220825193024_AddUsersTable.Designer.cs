@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Staycation.Api.Data.Access;
 
@@ -11,9 +12,10 @@ using Staycation.Api.Data.Access;
 namespace Staycation.Api.Migrations
 {
     [DbContext(typeof(AccommodationContext))]
-    partial class AccommodationContextModelSnapshot : ModelSnapshot
+    [Migration("20220825193024_AddUsersTable")]
+    partial class AddUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
